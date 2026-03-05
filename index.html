@@ -386,10 +386,18 @@
       }
     }
 
-    .hero-content {
+    .hero-flex {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
       position: relative;
-      z-index: 2;
-      max-width: 640px
+      z-index: 10;
+    }
+
+    .hero-content {
+      max-width: 640px;
+      flex: 1;
     }
 
     .hero-badge {
@@ -484,16 +492,13 @@
     }
 
     .hero-card {
-      position: absolute;
-      right: 5%;
-      top: 50%;
-      transform: translateY(-50%);
       background: var(--white);
       border-radius: 20px;
       padding: 32px 28px;
-      width: 280px;
+      width: 320px;
       box-shadow: var(--shadow-lg);
-      z-index: 3
+      z-index: 3;
+      flex-shrink: 0;
     }
 
     .hero-card-title {
@@ -1432,17 +1437,19 @@
     /* ── RESPONSIVE ── */
     @media (max-width: 1160px) {
       .hero-card {
-        right: 24px;
-        width: 260px;
+        width: 300px;
       }
     }
 
     @media (max-width: 1024px) {
       .hero {
-        padding: 100px 0 60px;
-        height: auto;
+        padding: 40px 0 60px;
         min-height: auto;
-        display: block;
+      }
+
+      .hero-flex {
+        flex-direction: column;
+        gap: 40px;
       }
 
       .hero-content {
@@ -1459,18 +1466,12 @@
         justify-content: center;
       }
 
-      .hero-stats {
-        justify-content: center;
-      }
-
       .hero-card {
-        position: relative;
-        top: 0;
-        right: 0;
-        transform: none;
-        margin: 0 auto;
+        order: 1;
+        /* Move card below content in flex flow */
         width: 100%;
         max-width: 400px;
+        margin: 0 auto;
         box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
       }
 
@@ -1880,55 +1881,57 @@
     <div class="hero-ring2"></div>
     <div class="hero-ring3"></div>
     <div class="container">
-      <div class="hero-content fade-in">
-        <div class="hero-badge">
-          <span>కాత్యాయని</span> &nbsp;Rajanna Sircilla's Trusted Eye Care
-        </div>
-        <h1>Kathyayani<br /><em>Eye Hospital</em></h1>
-        <p class="hero-tag">"Vision Excellence, Compassionate Eye Care"</p>
-        <p class="hero-desc">Serving the Sircilla community with advanced ophthalmic care, expert surgeries, and
-          personalized treatment for every patient.</p>
-        <div class="hero-actions">
-          <button class="btn btn-gold" onclick="openModal()">📅 Book Appointment</button>
-          <a href="#about" class="btn"
-            style="background:rgba(255,255,255,.15);color:#fff;backdrop-filter:blur(6px)">Discover Our Story →</a>
-        </div>
-        <div class="hero-stats">
-          <div class="hero-stat">
-            <div class="hero-stat-num">4.9★</div>
-            <div class="hero-stat-label">Patient Rating</div>
+      <div class="hero-flex">
+        <div class="hero-content fade-in">
+          <div class="hero-badge">
+            <span>కాత్యాయని</span> &nbsp;Rajanna Sircilla's Trusted Eye Care
           </div>
-          <div class="hero-stat-div"></div>
-          <div class="hero-stat">
-            <div class="hero-stat-num">9–9</div>
-            <div class="hero-stat-label">Open Daily</div>
+          <h1>Kathyayani<br /><em>Eye Hospital</em></h1>
+          <p class="hero-tag">"Vision Excellence, Compassionate Eye Care"</p>
+          <p class="hero-desc">Serving the Sircilla community with advanced ophthalmic care, expert surgeries, and
+            personalized treatment for every patient.</p>
+          <div class="hero-actions">
+            <button class="btn btn-gold" onclick="openModal()">📅 Book Appointment</button>
+            <a href="#about" class="btn"
+              style="background:rgba(255,255,255,.15);color:#fff;backdrop-filter:blur(6px)">Discover Our Story →</a>
           </div>
-          <div class="hero-stat-div"></div>
-          <div class="hero-stat">
-            <div class="hero-stat-num">100%</div>
-            <div class="hero-stat-label">Care & Compassion</div>
+          <div class="hero-stats">
+            <div class="hero-stat">
+              <div class="hero-stat-num">4.9★</div>
+              <div class="hero-stat-label">Patient Rating</div>
+            </div>
+            <div class="hero-stat-div"></div>
+            <div class="hero-stat">
+              <div class="hero-stat-num">9–9</div>
+              <div class="hero-stat-label">Open Daily</div>
+            </div>
+            <div class="hero-stat-div"></div>
+            <div class="hero-stat">
+              <div class="hero-stat-num">100%</div>
+              <div class="hero-stat-label">Care & Compassion</div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
 
-    <!-- Floating request card -->
-    <div class="hero-card fade-in">
-      <div class="hero-card-title">📞 Request a Call Back</div>
-      <input type="text" id="hero-name" placeholder="Your Name" />
-      <input type="tel" id="hero-mobile" placeholder="Mobile Number" />
-      <select id="hero-service">
-        <option value="">Select Service</option>
-        <option>Cataract Surgery</option>
-        <option>Nd-YAG Laser</option>
-        <option>Contact Lens</option>
-        <option>Paediatric Eye Care</option>
-        <option>General Consultation</option>
-      </select>
-      <button class="btn btn-primary" id="hero-submit">Request Call Back</button>
-      <div class="hero-card-hours">
-        <div class="dot-green"></div>
-        <span>Open today · 9:00 AM – 9:00 PM</span>
+        <!-- Request card inside flex for better responsiveness -->
+        <div class="hero-card fade-in">
+          <div class="hero-card-title">📞 Request a Call Back</div>
+          <input type="text" id="hero-name" placeholder="Your Name" />
+          <input type="tel" id="hero-mobile" placeholder="Mobile Number" />
+          <select id="hero-service">
+            <option value="">Select Service</option>
+            <option>Cataract Surgery</option>
+            <option>Nd-YAG Laser</option>
+            <option>Contact Lens</option>
+            <option>Paediatric Eye Care</option>
+            <option>General Consultation</option>
+          </select>
+          <button class="btn btn-primary" id="hero-submit">Request Call Back</button>
+          <div class="hero-card-hours">
+            <div class="dot-green"></div>
+            <span>Open today · 9:00 AM – 9:00 PM</span>
+          </div>
+        </div>
       </div>
     </div>
   </section>
