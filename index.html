@@ -910,9 +910,12 @@
     .why-stat {
       background: rgba(255, 255, 255, .12);
       border-radius: 14px;
-      padding: 20px;
+      padding: 20px 10px;
       text-align: center;
-      backdrop-filter: blur(4px)
+      backdrop-filter: blur(4px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
 
     .why-stat-n {
@@ -1589,7 +1592,16 @@
       }
 
       .why-stat-row {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      .why-stat {
+        padding: 15px;
+      }
+
+      .why-stat-n {
+        font-size: 2rem;
       }
 
       .modal {
