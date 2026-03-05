@@ -56,7 +56,7 @@
     }
 
     .section {
-      padding: 88px 0
+      padding: clamp(60px, 10vw, 88px) 0
     }
 
     .section-alt {
@@ -1426,76 +1426,174 @@
     }
 
     /* ── RESPONSIVE ── */
-    @media(max-width:1024px) {
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1160px) {
       .hero-card {
-        display: none
+        right: 24px;
+        width: 260px;
+      }
+    }
+
+    @media (max-width: 1024px) {
+      .hero {
+        padding: 100px 0 60px;
+        height: auto;
+        min-height: auto;
+        display: block;
+      }
+
+      .hero-content {
+        max-width: 100%;
+        text-align: center;
+        margin-bottom: 40px;
+      }
+
+      .hero-desc {
+        margin: 0 auto 32px;
+      }
+
+      .hero-actions {
+        justify-content: center;
+      }
+
+      .hero-stats {
+        justify-content: center;
+      }
+
+      .hero-card {
+        position: relative;
+        top: 0;
+        right: 0;
+        transform: none;
+        margin: 0 auto;
+        width: 100%;
+        max-width: 400px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      }
+
+      .hero-eye-decor {
+        width: 300px;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        opacity: 0.08;
       }
 
       .about-grid,
       .why-grid,
       .contact-grid {
-        grid-template-columns: 1fr
-      }
-
-      .footer-grid {
-        grid-template-columns: 1fr 1fr
-      }
-    }
-
-    @media(max-width:768px) {
-
-      .nav-links,
-      .nav-cta .btn-outline {
-        display: none
-      }
-
-      .hamburger {
-        display: flex
-      }
-
-      nav {
-        position: sticky
+        grid-template-columns: 1fr;
+        gap: 40px;
       }
 
       .gallery-grid {
-        grid-template-columns: 1fr 1fr
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .topbar-left {
+        justify-content: center;
+        text-align: center;
+        font-size: 0.75rem;
+      }
+
+      .topbar-left span:first-child {
+        display: none;
+        /* Hide address on tiny screens to save space, it's in footer */
+      }
+
+      .nav-links,
+      .nav-cta .btn-outline {
+        display: none;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      .section-title {
+        font-size: 2.2rem;
       }
 
       .gallery-item:nth-child(1) {
         grid-column: auto;
         grid-row: auto;
-        font-size: 3rem
+        font-size: 3rem;
       }
 
-      .footer-grid {
-        grid-template-columns: 1fr
+      .contact-form {
+        padding: 24px;
       }
 
-      .form-row {
-        grid-template-columns: 1fr
-      }
-
-      .why-stat-row {
-        grid-template-columns: 1fr 1fr
+      .map-address-card {
+        max-width: calc(100% - 30px);
       }
     }
 
-    @media(max-width:480px) {
+    @media (max-width: 480px) {
+      .container {
+        padding: 0 16px;
+      }
+
+      .hero h1 {
+        font-size: 2.8rem;
+      }
+
+      .hero-badge {
+        font-size: 0.7rem;
+        padding: 6px 14px;
+      }
+
       .hero-stats {
-        gap: 20px
+        gap: 15px;
       }
 
-      .hero-actions {
-        flex-direction: column
+      .hero-stat-num {
+        font-size: 1.8rem;
       }
 
-      .footer-bottom {
-        flex-direction: column;
-        text-align: center
+      .hero-actions .btn {
+        width: 100%;
+        justify-content: center;
       }
 
-      .topbar .topbar-right {
-        display: none
+      .topbar .inner {
+        justify-content: center;
+      }
+
+      .topbar-right {
+        width: 100%;
+        justify-content: center;
+        margin-top: 4px;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .footer-socials {
+        justify-content: center;
+      }
+
+      .footer-contact-item {
+        justify-content: center;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .why-stat-row {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .modal {
+        padding: 30px 20px;
       }
     }
 
@@ -1803,11 +1901,11 @@
     </div>
 
     <!-- Floating request card -->
-    <div class="hero-card">
+    <div class="hero-card fade-in">
       <div class="hero-card-title">📞 Request a Call Back</div>
-      <input type="text" placeholder="Your Name" />
-      <input type="tel" placeholder="Mobile Number" />
-      <select>
+      <input type="text" id="hero-name" placeholder="Your Name" />
+      <input type="tel" id="hero-mobile" placeholder="Mobile Number" />
+      <select id="hero-service">
         <option value="">Select Service</option>
         <option>Cataract Surgery</option>
         <option>Nd-YAG Laser</option>
@@ -1815,7 +1913,7 @@
         <option>Paediatric Eye Care</option>
         <option>General Consultation</option>
       </select>
-      <button class="btn btn-primary" onclick="openModal()">Request Call Back</button>
+      <button class="btn btn-primary" id="hero-submit">Request Call Back</button>
       <div class="hero-card-hours">
         <div class="dot-green"></div>
         <span>Open today · 9:00 AM – 9:00 PM</span>
@@ -2566,7 +2664,43 @@
         document.getElementById('modal-date').value = "";
       }
     });
+
+    // Hero Callback Form Submission
+    document.getElementById('hero-submit').addEventListener('click', async () => {
+      const name = document.getElementById('hero-name').value.trim();
+      const mobile = document.getElementById('hero-mobile').value.trim();
+      const service = document.getElementById('hero-service').value;
+
+      if (!name || !mobile) {
+        alert("Please provide your Name and Mobile Number.");
+        return;
+      }
+
+      const btn = document.getElementById('hero-submit');
+      const originalText = btn.innerHTML;
+      btn.innerHTML = "Submitting...";
+      btn.disabled = true;
+
+      const { data, error } = await supabaseClient
+        .from('appointments')
+        .insert([{
+          name, mobile, service, source: 'Hero Callback Form'
+        }]);
+
+      btn.innerHTML = originalText;
+      btn.disabled = false;
+
+      if (error) {
+        console.error("Supabase Error:", error);
+        alert("Error saving request. Please try again.");
+      } else {
+        alert("Request received! Our team will call you back shortly.");
+        document.getElementById('hero-name').value = "";
+        document.getElementById('hero-mobile').value = "";
+        document.getElementById('hero-service').value = "";
+      }
+    });
   </script>
 </body>
 
-</html>```
+</html>
