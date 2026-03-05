@@ -495,10 +495,12 @@
       background: var(--white);
       border-radius: 20px;
       padding: 32px 28px;
-      width: 320px;
+      width: 330px;
       box-shadow: var(--shadow-lg);
       z-index: 3;
       flex-shrink: 0;
+      margin-left: auto;
+      /* Pin to the right on desktop */
     }
 
     .hero-card-title {
@@ -1472,6 +1474,7 @@
         width: 100%;
         max-width: 400px;
         margin: 0 auto;
+        /* Reset margin-left and center on mobile */
         box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
       }
 
